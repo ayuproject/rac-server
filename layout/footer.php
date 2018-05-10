@@ -1,10 +1,7 @@
 
     </div>
-  <!-- Javascript -->
-  <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-  <script type="text/javascript" src="js/vendor.js"></script>
-  <script type="text/javascript" src="js/sux-admin.min.js"></script>
+	<!-- Javascript -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYrNGfgY2cwCAuI96qFYQmlTxQHFwHTJs&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 
 </html>
