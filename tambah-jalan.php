@@ -194,6 +194,7 @@
         if (map == null){
           return;
         }
+        
         //clear map
         clearMap();
         
