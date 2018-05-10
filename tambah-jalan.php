@@ -194,7 +194,7 @@
         if (map == null){
           return;
         }
-
+        //clear map
         clearMap();
         
         var xhttp;
@@ -204,6 +204,7 @@
             var obj = JSON.parse(this.responseText); 
             for (i =0; i < obj.jalan.length; ++i) {
               var l_lat = obj.jalan[i].location.split(",");
+
               var marker = new google.maps.Marker({
                 map: map,
                 title: obj.jalan[i].nama,
