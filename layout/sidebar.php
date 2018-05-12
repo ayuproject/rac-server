@@ -23,4 +23,4 @@
     </div>
   </div>
   <!-- /.sidebar -->
-    <div class="content-wrapper">
+  <div class="content-wrapper">

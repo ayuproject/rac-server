@@ -74,17 +74,16 @@
           <!-- end tab -->
         </div>
         <div class="clearfix"></div>
-            <div class="clearfix"></div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="map-container">
-                  <input id="pac-input" class="controls" type="text" placeholder="Search Box" id="placeSearch">
-                  <div id="map">
-                    
-                  </div>
-                </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="map-container">
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box" id="placeSearch">
+              <div id="map">
+                
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </div>
     <script type="text/javascript">
