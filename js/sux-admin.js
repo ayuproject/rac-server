@@ -1,9 +1,9 @@
-/**
+/*!
  * Sux Admin
  * Released Under MIT License
  * Copyright (c) 2016 Fesuy <fesuydev@gmail.com>
  */
-(function($, window, document, undefined) {
+$(function(window, document, undefined) {
   var sideScroll,
     navScroll,
     wWidth = $(window).width(),
@@ -67,7 +67,7 @@
 
   $(document).on('click', '.close-search', hideSearch);
 
-  $('[data-toggle="sidebar-collapse"]').click(function(e) {
+  $(document).on('click', '[data-toggle="sidebar-collapse"]', function(e) {
     e.preventDefault();
     if (wWidth > 991) {
       var anim = $('.navbar-top, .sidebar, .content-wrapper');
@@ -136,4 +136,4 @@
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
 
-})(jQuery, window, document);
+}(window, document));
