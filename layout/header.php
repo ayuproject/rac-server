@@ -45,14 +45,10 @@
         <a class="navbar-brand" href="index.php">App Android</a>
       </div>
       <ul class="nav navbar-toolbar">
-        <li><a href="#" data-toggle="sidebar-collapse"><span class="fa fa-chevron-left"></span></a></li>
         <li>
-          <a href="#" class="search-toggle" data-toggle="collapse" data-target=".form-search-collapse"><span class="fa fa-search"></span></a>
-          <form class="collapse form-search-collapse" method="GET">
-            <div class="form-group">
-              <input type="text" class="form-control" name="search">
-            </div>
-           </form>
+          <a href="#" data-toggle="sidebar-collapse">
+            <span class="fa fa-chevron-left"></span>
+          </a>
         </li>
       </ul>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -62,7 +58,7 @@
             <li class="dropdown dropdown-nav">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> Hello, user <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#"><span class="fa fa-gear"></span> Setting</a></li>
+                <li><a href="#"><span class="fa fa-gear"></span>Setting</a></li>
                 <li><a href="#"><span class="fa fa-power-off"></span> Logout</a></li>
               </ul>
             </li>
