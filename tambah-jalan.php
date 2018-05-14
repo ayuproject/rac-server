@@ -87,19 +87,10 @@
       </div>
     </div>
     <script type="text/javascript">
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
       var map;
       var markers = [];
       var rectangles = [];
       var jalanData= [];
-      var boundsCianjur;
       var boundsCianjurKota;
 
       $(document).on('click', '#btn-batal', function(e) {
@@ -233,9 +224,6 @@
           mapTypeId: 'roadmap'
         });
         // Defind default bounds to cianjur
-        boundsCianjur = new google.maps.LatLngBounds();
-        boundsCianjur.extend(new google.maps.LatLng(-6.602095,107.48484));
-        boundsCianjur.extend(new google.maps.LatLng(-7.504663,106.776047));
         boundsCianjurKota = new google.maps.LatLngBounds();
         boundsCianjurKota.extend(new google.maps.LatLng(-6.803476,107.15325));
         boundsCianjurKota.extend(new google.maps.LatLng(-6.84117,107.122121));
@@ -263,11 +251,6 @@
           if (places.length == 0) {
             return;
           }
-
-          // Clear out the old markers.
-          //clearMap();
-
-
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
@@ -319,9 +302,6 @@
               anchor: new google.maps.Point(17, 34),
               scaledSize: new google.maps.Size(25, 25)
             };
-            
-
-            
             // Create a marker for each place.
             markers.push(new google.maps.Marker({
               map: map,
@@ -329,9 +309,6 @@
               title: place.name,
               position: place.geometry.location
             }));
-
-
-
             if (place.geometry.viewport) {
               // Only geocodes have viewport/bounds.
               bounds.extend(place.geometry.viewport.getNorthEast());
@@ -342,14 +319,12 @@
               console.log("location");
             }
             // Place Result on input
-            //$("#name").value(place.id);
             $("#nama").val(streetName);
             $("#location").val(place.geometry.location.lat() + "," + place.geometry.location.lng());
             $("#neast").val(bounds.getNorthEast().lat() + "," + bounds.getNorthEast().lng());
             $("#swest").val(bounds.getSouthWest().lat() + "," + bounds.getSouthWest().lng());
             $("#placeid").val(place.place_id);
             $("#aksi").val("tambah");
-
             rectangles.push(
               new google.maps.Rectangle({
                 strokeColor: '#FF0000',
