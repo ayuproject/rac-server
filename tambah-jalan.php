@@ -285,7 +285,7 @@
             } else {
                 var comp = place;
                 if (comp.types.length && comp.types[0] == 'route') {
-                  streetName = $("#pac-input").val();
+                  streetName = place.name;
                   console.log(streetName);
                 }
             }

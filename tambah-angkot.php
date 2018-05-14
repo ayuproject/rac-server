@@ -40,7 +40,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="latlng">Lokasi</label>
-                                <input class="form-control" required="required" name="latlng" type="text" id="latlng">
+                                <input class="form-control" required="required" name="latlng" type="text" id="latlng" disabled>
                                 <small class="text-danger"></small>
                               </div>
                               <div class="clearfix"></div>
@@ -96,16 +96,20 @@
       </div>
       </div>
       <script type="text/javascript">
-        var tb_count = 0;
         $(document).on("click", ".btn-rm", function(e){
-          console.log("remove");
+          $(this).parent().parent().remove();
+          var tb_count = 0;
+          $('#tb-lokasi > tbody > tr').each(function(){
+            $(this).find(".num").html(++tb_count);
+          });
         });
 
         $(document).on("click", "#btn-add", function(e){
-          e.preventDefault();
-          console.log("click");
-          tb_count++;
-          $('#tb-lokasi > tbody:last-child').append("<tr> <td>" + tb_count + "</td> <td>lokasi</td><td><button class='btn btn-danger btn-rm' name='btn-rm'>-</button></td></tr>");
+          var val
+          if ()
+          var tab = $('#tb-lokasi > tbody:last-child');
+          var length = $('#tb-lokasi > tbody > tr').length;
+          tab.append("<tr> <td class='num'>" + (length + 1) + "</td> <td>lokasi" + (length + 1) + "</td><td><button class='btn btn-danger btn-rm' name='btn-rm'>-</button></td></tr>");
         });
 
         function initAutocomplete() {
