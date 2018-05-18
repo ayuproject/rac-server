@@ -1,5 +1,5 @@
   <!-- .sidebar -->
-  <div class="sidebar">
+  <div class="sidebar sidebar-collapsed sidebar-collapse">
     <div class="sidebar-nav">
       <div class="sidebar-scroller">
         <ul class="sidebar-menu">
@@ -23,4 +23,4 @@
     </div>
   </div>
   <!-- /.sidebar -->
-  <div class="content-wrapper">
+  <div class="content-wrapper sidebar-collapsed sidebar-collapse">

@@ -35,7 +35,7 @@
   <!-- javascript -->
   
   <!-- .navbar-top -->
-  <nav class="navbar navbar-top" role="navigation">
+  <nav class="navbar navbar-top sidebar-collapsed sidebar-collapse" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
