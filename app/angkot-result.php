@@ -48,6 +48,7 @@
 		$stmt_rute->execute();
 		$result_rute = $stmt_rute->fetchAll();
 		$c_rute = 0;
+		$data_result["angkot"]["rute"] = array();
 		foreach ($result_rute as $data_rute) {
 			$data_result["angkot"]["rute"][$c_rute++] = $data_rute["latlng"];
 		}
