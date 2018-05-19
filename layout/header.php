@@ -42,7 +42,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inline-collapse">
           <span class="fa fa-chevron-down"></span>
         </button>
-        <a class="navbar-brand" href="index.php">App Android</a>
+        <a class="navbar-brand" href="index.php">Rute Angkot Cianjur</a>
       </div>
       <ul class="nav navbar-toolbar">
         <li>

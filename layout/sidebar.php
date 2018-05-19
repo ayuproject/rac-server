@@ -10,7 +10,7 @@
           </li>
           <li>
             <a href="#" title="Rute Angkot Cianjur">
-              <span class="fa fa-file sidebar-icon"></span> Rute Angkot Cianjur <span class="arrow"></span>
+              <span class="fa fa-file sidebar-icon"></span>Jalan Dan Tempat<span class="arrow"></span>
             </a>
             <ul class="sidebar-submenu">
               <li><a href="tambah-jalan.php"><span class="fa fa-plus"></span>Jalan Cianjur</a></li>
