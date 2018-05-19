@@ -228,10 +228,6 @@
                     map: map,
                     draggable: true //make it draggable
                 });
-                //Listen for drag events!
-                /*google.maps.event.addListener(marker, 'dragend', function(event){
-                    markerLocation();
-                });*/
             } else {
                 //Marker has already been added, so just change its location.
                 routeMarker.setPosition(clickedLocation);
