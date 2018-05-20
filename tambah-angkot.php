@@ -278,6 +278,8 @@
               $(this).find(".num").html(++tb_count);
             });
             directionsDisplay.setMap(null);
+            directionsDisplay = null;
+            directionsDisplay = new google.maps.DirectionsRenderer;
             directionsDisplay.setMap(map);
             if (tb_count > 1) {
               calculateAndDisplayRoute(directionsService, directionsDisplay, false);
@@ -380,6 +382,8 @@
           $(document).on("click", "#btn-result-rute", function(e){
             var length = $('#tb-lokasi > tbody > tr').length;
             directionsDisplay.setMap(null);
+            directionsDisplay = null;
+            directionsDisplay = new google.maps.DirectionsRenderer;
             directionsDisplay.setMap(map);
             if (length > 1) {
               calculateAndDisplayRoute(directionsService, directionsDisplay, true);
