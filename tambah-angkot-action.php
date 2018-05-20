@@ -6,6 +6,7 @@
         try {
             $stmt->bindParam(":id_angkot", $id_angkot);
             $stmt->execute();
+            $stmt->closeCursor();
         } catch (PDOException $e) {
             return "$e";
         }
@@ -24,10 +25,10 @@
             $sql .= $i === 0 ? "" : ",";
             $sql .= "($id_angkot, :val$i)";
         }
+        $sql .= ";";
         $stmt = $conn->prepare($sql);
         for ($i = 0; $i < sizeof($val); ++$i) {
-            $param = $val[$i];
-            $stmt->bindParam(":val$i", $param);
+            $stmt->bindParam(":val$i", $val[$i]);
         }
 
         return $stmt;
@@ -46,43 +47,9 @@
     $stmt_rute = null;
     $stmt_jalan = null;
     $stmt_tempat = null;
-
+    
 	if ($aksi === "edit") {
-		$pesan = "diubah";
-		$stmt_angkot = $conn->prepare("
-					UPDATE  
-						tb_angkot 
-					SET 
-                        nama=:nama,
-                        harga=:tarif
-					WHERE 
-						id=:id;
-					);"
-		);
-		$stmt_angkot->bindParam(":id", $id);
-        $stmt_angkot->bindParam(":nama", $nama);
-        $stmt_angkot->bindParam(":tarif", $tarif);
-        $stmt_rute = createMultipleInsertSQL(
-            $id, 
-            "tb_angkot_rute", 
-            "latlng", 
-            $rute, 
-            $conn
-        );
-        $stmt_jalan = createMultipleInsertSQL(
-            $id, 
-            "tb_angkot_jalan", 
-            "id_jalan", 
-            $id_jalan,
-            $conn
-        );
-        $stmt_tempat = createMultipleInsertSQL(
-            $id,
-            "tb_angkot_tempat", 
-            "id_tempat", 
-            $id_tempat,
-            $conn
-        );
+        $pesan = "diubah";
         $del_rute = deleteTableFrom(
             $conn->prepare("
                 DELETE FROM
@@ -115,10 +82,48 @@
             return;
         }
         try {
+            $stmt_angkot = $conn->prepare("
+                UPDATE
+                    tb_angkot
+                    SET
+                    nama=:nama,
+                    harga=:tarif
+                    WHERE 
+                    id=:id;
+                );"
+            );
+            $stmt_angkot->bindParam(":id", $id);
+            $stmt_angkot->bindParam(":nama", $nama);
+            $stmt_angkot->bindParam(":tarif", $tarif);
             $stmt_angkot->execute();
+            $stmt_angkot->closeCursor();
+            $stmt_rute = createMultipleInsertSQL(
+                $id, 
+                "tb_angkot_rute", 
+                "latlng", 
+                $rute, 
+                $conn
+            );
             $stmt_rute->execute();
+            $stmt_rute->closeCursor();
+            $stmt_jalan = createMultipleInsertSQL(
+                $id, 
+                "tb_angkot_jalan", 
+                "id_jalan", 
+                $id_jalan,
+                $conn
+            );
             $stmt_jalan->execute();
+            $stmt_jalan->closeCursor();
+            $stmt_tempat = createMultipleInsertSQL(
+                $id,
+                "tb_angkot_tempat", 
+                "id_tempat", 
+                $id_tempat,
+                $conn
+            );
             $stmt_tempat->execute();
+            $stmt_tempat->closeCursor();
             echo "Data berhasil di $pesan";
         } catch (PDOException $e) {
             echo "$e";
@@ -141,6 +146,7 @@
         try {
             $stmt_angkot->execute();
             $id = $conn->lastInsertId();
+            $stmt_angkot->closeCursor();
             $stmt_rute = createMultipleInsertSQL(
                 $id, 
                 "tb_angkot_rute", 
@@ -163,8 +169,11 @@
                 $conn
             );
             $stmt_rute->execute();
+            $stmt_rute->closeCursor();
             $stmt_jalan->execute();
+            $stmt_jalan->closeCursor();
             $stmt_tempat->execute();
+            $stmt_tempat->closeCursor();
             echo "Data berhasil di $pesan";
         } catch (PDOException $e) {
             echo "$e";
@@ -201,9 +210,13 @@
         $stmt_tempat->bindParam(":id", $id);
         try {
             $stmt_angkot->execute();
+            $stmt_angkot->closeCursor();
             $stmt_rute->execute();
+            $stmt_rute->closeCursor();
             $stmt_jalan->execute();
+            $stmt_jalan->closeCursor();
             $stmt_tempat->execute();
+            $stmt_tempat->closeCursor();
             echo "Data berhasil di $pesan";
         } catch (PDOException $e) {
             echo "$e";

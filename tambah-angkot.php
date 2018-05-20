@@ -1,12 +1,36 @@
 <?php
   require_once('layout/header.php');
   require_once('layout/sidebar.php');
+  require_once('config/const.php');
+  
+
+  $aksi = isset($_POST["aksi"]) ? $_POST["aksi"] : "";
+  $id = isset($_POST["id"]) ? $_POST["id"] : "-1";
+  $nama = "";
+  $tarif = "";
+  $rute = array();
+  $jalan = array();
+  $tempat = array();
+  $obj = null;
+
+  if ($aksi === "edit") {
+    ini_set("allow_url_fopen", 1);
+    $url = DOMAIN_APP."/app/angkot-result.php?id=".$id;
+    $json = file_get_contents($url);
+    $obj = json_decode($json, true);
+    $nama = $obj["angkot"]["nama"];
+    $tarif = $obj["angkot"]["harga"];
+    $rute = $obj["angkot"]["rute"];
+    $jalan = $obj["angkot"]["jalan"];
+    $tempat = $obj["angkot"]["tempat"];
+  }
+
 ?>
       <div class="bs-docs-section">
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="forms">Forms</h1>
+              <h1 id="forms">Input Angkot</h1>
             </div>
           </div>
         </div>
@@ -16,7 +40,6 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="map-container">
-                      <input id="pac-input" class="controls" type="text" placeholder="Search Box" id="placeSearch">
                       <div id="map">
                         
                       </div>
@@ -33,8 +56,8 @@
                   <li><a href="#inputjalan" data-toggle="tab" id="htb-jalan"><span class="glyphicon glyphicon-road">Jalan</a></li>
                   <li><a href="#inputtempat" data-toggle="tab" id="htb-tempat"><span class="glyphicon glyphicon-home">Tempat</a></li>
                 </ul>
-                <input type="hidden" id="aksi" value="tambah">
-                <input type="hidden" id="id-angkot" value="-1">
+                <input type="hidden" id="aksi" value="<?= isset($_POST['aksi']) ? $_POST['aksi'] : '' ?>">
+                <input type="hidden" id="id-angkot" value="<?= isset($_POST['id']) ? $_POST['id'] : '-1' ?>">
                 <div id="myTabContent" class="tab-content">
                   <div class="tab-pane fade active in" id="inputdata">
                     <div class="well bs-component">
@@ -42,13 +65,13 @@
                         <div class="row">
                           <div class="form-group">
                             <label for="nama">Nama Angkot</label>
-                            <input class="form-control" required="required" name="nama" type="text" id="nama">
+                            <input class="form-control" required="required" name="nama" type="text" id="nama" value="<?=$nama?>">
                             <small class="text-danger"></small>
                           </div>
                           <div class="clearfix"></div>
                           <div class="form-group">
                             <label for="tarif">Tarif Angkot</label>
-                            <input class="form-control" required="required" name="nama" type="text" id="tarif">
+                            <input class="form-control" required="required" name="nama" type="text" id="tarif"  value="<?=$tarif?>">
                             <small class="text-danger"></small>
                           </div>
                         </div>
@@ -79,7 +102,11 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      
+                                      <?php
+                                        for ($i = 0; $i < sizeof($rute); ++$i) {
+                                          echo "<tr> <td class='num'>" . ($i + 1) . "</td> <td class='latlng'>" . $rute[$i] . "</td><td><button class='btn btn-danger btn-rm' name='btn-rm'>-</button></td></tr>";
+                                        }
+                                      ?>
                                     </tbody>
                                   </table>
                                 </div>
@@ -125,7 +152,11 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    
+                                    <?php
+                                      for ($i = 0; $i < sizeof($jalan); ++$i) {
+                                        echo "<tr> <td class='id'>" . $jalan[$i]["id"] . "</td> <td class='nama'>" . $jalan[$i]["nama"] . "</td><td><button class='btn btn-danger btn-rm-jalan-tempat' name='btn-rm-jalan-tempat'>-</button></td></tr>";
+                                      }
+                                    ?>
                                   </tbody>
                                 </table>
                               </div>
@@ -168,7 +199,11 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    
+                                    <?php
+                                      for ($i = 0; $i < sizeof($tempat); ++$i) {
+                                        echo "<tr> <td class='id'>" . $tempat[$i]["id"] . "</td> <td class='nama'>" . $tempat[$i]["nama"] . "</td><td><button class='btn btn-danger btn-rm-jalan-tempat' name='btn-rm-jalan-tempat'>-</button></td></tr>";
+                                      }
+                                    ?>
                                   </tbody>
                                 </table>
                               </div>
@@ -178,7 +213,11 @@
                       </fieldset>
                     </div>
                   </div>
-                  <button class="btn btn-success pull-right" id="btn-simpan">Simpan</button>
+                  
+                  <div class="btn-toolbar">
+                    <button class="btn btn-success pull-right" id="btn-simpan">Simpan</button>
+                    <button class="btn btn-danger pull-left" id="btn-hapus" <?= $aksi === "edit" ? "" : "disabled" ?>>Hapus</button>
+                  </div>
               </div>
             </div>
             <!-- end tab -->
@@ -203,12 +242,8 @@
           var jalanData = [];
           var tempatData = [];
 
-          var input = document.getElementById('pac-input');
-          var searchBox = new google.maps.places.SearchBox(input, { bounds: boundsCianjurKota });
-          
-          map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
           map.addListener('bounds_changed', function() {
-            searchBox.setBounds(boundsCianjurKota);
+            
           });
           map.fitBounds(boundsCianjurKota);
           
@@ -288,8 +323,6 @@
             tab.append("<tr> <td class='num'>" + (length + 1) + "</td> <td class='latlng'>" + val + "</td><td><button class='btn btn-danger btn-rm' name='btn-rm'>-</button></td></tr>");
             $("#latlng").val("");
             directionsDisplay.setMap(null);
-            directionsDisplay = null;
-            directionsDisplay = new google.maps.DirectionsRenderer;
             directionsDisplay.setMap(map);
             if ((length + 1) > 1) {
               calculateAndDisplayRoute(directionsService, directionsDisplay, false);
@@ -346,6 +379,8 @@
 
           $(document).on("click", "#btn-result-rute", function(e){
             var length = $('#tb-lokasi > tbody > tr').length;
+            directionsDisplay.setMap(null);
+            directionsDisplay.setMap(map);
             if (length > 1) {
               calculateAndDisplayRoute(directionsService, directionsDisplay, true);
             }
@@ -405,6 +440,19 @@
             function(data,status){
                 alert("Pesan : " + data);
                 location.reload();
+            });
+          });
+
+          $(document).on("click", "#btn-hapus", function(e){
+            var id = $("#id-angkot").val();
+            $.post("tambah-angkot-action.php",
+            {
+              aksi: "hapus",
+              id: id
+            },
+            function(data,status){
+              alert("Pesan : " + data);
+              window.location="index.php";
             });
           });
 
