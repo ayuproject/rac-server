@@ -208,6 +208,7 @@
               });
               marker.addListener('click', function() {
                 setExitingStreet(this);
+                topFunction();
               });
               jalanData.push(marker);
             }
@@ -215,6 +216,11 @@
         };
         xhttp.open("GET", "get-street.php", true);
         xhttp.send();
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
 
       function initAutocomplete() {

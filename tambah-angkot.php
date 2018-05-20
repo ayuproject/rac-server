@@ -503,6 +503,7 @@
                   marker.addListener('click', function() {
                     $("#id-jalan").val(this.a_id);
                     $("#nama-jalan").val(this.title);
+                    topFunction();
                   });
                   jalanData.push(marker);
                 }
@@ -536,6 +537,7 @@
                   marker.addListener('click', function() {
                     $("#id-tempat").val(this.a_id);
                     $("#nama-tempat").val(this.title);
+                    topFunction();
                   });
                   jalanData.push(marker);
                 }
@@ -544,6 +546,11 @@
             xhttp.open("GET", "get-place.php", true);
             xhttp.send();
           }
+        }
+
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
         }
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay, isRound) {
