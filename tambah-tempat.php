@@ -16,14 +16,14 @@
             <!--<form class="form-horizontal" method="POST" enctype="multipart/form-data" action="tambah-app-action.php"> </form>-->
               <div class="well bs-component">
                 <fieldset>
-                  <legend>Input Jalan</legend>
+                  <legend>Input Tempat</legend>
                   <input type="hidden" name="aksi" id="aksi" value="-1">
                   <input type="hidden" name="id-tempat" id="id-tempat" value="-1">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="nama">Nama Jalan</label>
+                          <label for="nama">Nama Tempat</label>
                           <input class="form-control" required="required" name="nama" type="text" id="nama">
                           <small class="text-danger"></small>
                         </div>
@@ -190,6 +190,7 @@
               });
               marker.addListener('click', function() {
                 setExitingStreet(this);
+                topFunction();
               });
               jalanData.push(marker);
             }
@@ -197,6 +198,11 @@
         };
         xhttp.open("GET", "get-place.php", true);
         xhttp.send();
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
 
       function initAutocomplete() {
