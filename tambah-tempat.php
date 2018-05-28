@@ -249,21 +249,7 @@
             }
 
             var location = place.geometry.location;
-            var streetName = place.name;;
-            /*if (place.address_components) {
-              for(var i=0;i<place.address_components.length;i++) {
-                var comp = place.address_components[i];
-                if (comp.types.length && comp.types[0] == 'route') {
-                  streetName = "";
-                  break;
-                } else {
-                  streetName = comp.long_name;
-                  break;
-                }
-              } 
-            } else {
-              streetName = $("#pac-input").val();
-            }*/
+            var streetName = place.name;
             if (streetName === ''){
               bounds = boundsCianjurKota;
               window.alert('Maap yang anda cari atau pilih adalah jalan');
