@@ -29,13 +29,6 @@
       <div class="bs-docs-section">
         <div class="row">
           <div class="col-lg-12">
-            <div class="page-header">
-              <h1 id="forms">Input Angkot</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
             <div class="col-md-7">
                 <div class="row">
                   <div class="col-sm-12">
@@ -50,6 +43,7 @@
             <div class="col-md-5">
               <!-- tab -->
               <div class="bs-component">
+                <legend>Input Angkot</legend>
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#inputdata" data-toggle="tab" id="htb-data"><span class="glyphicon glyphicon-file">Data</span></a></li>
                   <li><a href="#inputrute" data-toggle="tab" id="htb-rute"><span class="glyphicon glyphicon-flag">Rute</a></li>
