@@ -1,0 +1,14 @@
+{
+    "name": "ayuproject/ruteangkotcianjur",
+    "description": "Rute angkot cianjur - Server",
+    "require": {
+        "firebase/php-jwt": "^5.0"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ayu",
+            "email": "ayu.project.2018@gmail.com"
+        }
+    ]
+}
