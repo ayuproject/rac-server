@@ -1,46 +1,30 @@
 <?php
-require_once('../vendor/autoload.php');
+    require_once("../config/const.php");
+    require_once('../vendor/autoload.php');
 
-use \Firebase\JWT\JWT;
+    use \Firebase\JWT\JWT;
 
-$key = "YXl1LnByb2plY3QuMjAxOA==";
-$token = array(
-    "iss" => "http://example.org",
-    "aud" => "http://example.com",
-    "iat" => 1356999524,
-    "nbf" => 1357000000
-);
+    $key = KEY_TOKEN;
 
-/**
- * IMPORTANT:
- * You must specify supported algorithms for your application. See
- * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
- * for a list of spec-compliant algorithms.
- */
-$jwt = JWT::encode($token, $key);
-$decoded = JWT::decode($jwt, $key, array('HS256', 'RS256', 'ES256'));
+    $app_id =  $_POST["app_id"];
 
-$unencodedArray = ['jwt' => $jwt];
-echo json_encode($unencodedArray);
+    if ($app_id !== APP_ID) {
+        header('HTTP/1.0 401 Unauthorized');
+        return;
+    }
 
-print_r($decoded);
-print_r($jwt);
+    $c_time = time();
+    $nbf = $c_time + 10;
+    $token = array(
+        "iat" => $c_time
+    );
 
-/*
- NOTE: This will now be an object instead of an associative array. To get
- an associative array, you will need to cast it as such:
-*/
-
-$decoded_array = (array)$decoded;
-
-/**
- * You can add a leeway to account for when there is a clock skew times between
- * the signing and verifying servers. It is recommended that this leeway should
- * not be bigger than a few minutes.
- *
- * Source: http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#nbfDef
- */
-JWT::$leeway = 60; // $leeway in seconds
-$decoded = JWT::decode($jwt, $key, array('HS256'));
-
+    $jwt = JWT::encode($token, $key, 'HS256');
+    //$decoded = JWT::decode($jwt, $key, array('HS256'));
+    header('Content-type: application/json');
+    echo json_encode([
+        'result' => 1,
+        'msg' => 'OK',
+        'jwt' => $jwt
+    ]);
 ?>
