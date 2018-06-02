@@ -1,4 +1,11 @@
 <?php
+	session_start();
+
+    if (!isset($_SESSION['login_id'])) {
+		session_destroy();
+        header('HTTP/1.0 401 Unauthorized');
+        return;
+    }
 	require_once("config/database.php");
 	require_once("config/const.php");
 	$data_result = array();

@@ -1,10 +1,10 @@
 <?php
-  /*session_start();
-  if(!isset($_SESSION['login'])){
+  session_start();
+  if(!isset($_SESSION['login_id'])){
     session_destroy();
     echo "<script type='text/javascript'>window.location='login.php';</script>";
     exit();
-  }*/
+  }
   require_once("config/const.php");
 ?>
 
@@ -56,10 +56,10 @@
         <div class="navbar-scroller">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown dropdown-nav">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> Hello, user <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span> Hello, <?=$_SESSION['login_user']?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#"><span class="fa fa-gear"></span>Setting</a></li>
-                <li><a href="#"><span class="fa fa-power-off"></span> Logout</a></li>
+                <li><a href="edit-user.php"><span class="fa fa-gear"></span> Setting <?=$_SESSION['login_level'] === 1 ? "users" : "user"?></a></li>
+                <li><a href="logout.php"><span class="fa fa-power-off"></span> Logout</a></li>
               </ul>
             </li>
           </ul>

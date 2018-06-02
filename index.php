@@ -147,7 +147,7 @@
                 }
               }
             };
-            xhttp.open("GET", "app/angkot-result.php?id=" + id, true);
+            xhttp.open("GET", "get-angkot.php?id=" + id, true);
             xhttp.send();
           });
 
@@ -169,7 +169,7 @@
                 }
               }
             };
-            xhttp.open("GET", "app/all-angkot-result.php", true);
+            xhttp.open("GET", "get-all-angkot-result.php", true);
             xhttp.send();
           }
 
