@@ -14,7 +14,6 @@
   $obj = null;
 
   if ($aksi === "edit") {
-    ini_set("allow_url_fopen", 1);
     $url = DOMAIN_APP."/app/angkot-result.php?id=".$id;
     $json = file_get_contents($url);
     $obj = json_decode($json, true);
