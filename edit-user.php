@@ -14,12 +14,12 @@
                             <input type="hidden" name="aksi" id="aksi" value="tambah">
                             <div class="form-group">
                                 <label for="nama">Username</label>
-                                <input class="form-control" required="required" name="nama" type="text" id="nama" value="<?=$_SESSION['login_level'] !== 1 ? $_SESSION['login_user'] : "" ?>">
+                                <input class="form-control" required="required" name="nama" type="text" id="nama" value="<?=$_SESSION['login_level'] != 1 ? $_SESSION['login_user'] : "" ?>">
                                 <small class="text-danger"></small>
                             </div>
                             <div class="form-group">
                                 <label for="pass">Password</label>
-                                <input class="form-control" required="required" name="pass" type="text" id="pass" value="<?=$_SESSION['login_level'] !== 1 ? $_SESSION['login_pass'] : "" ?>">
+                                <input class="form-control" required="required" name="pass" type="text" id="pass" value="<?=$_SESSION['login_level'] != 1 ? $_SESSION['login_pass'] : "" ?>">
                                 <small class="text-danger"></small>
                             </div>
                         </fieldset>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 <?php
-    if ($_SESSION['login_level'] === 1) {
+    if ($_SESSION['login_level'] == 1) {
 ?>
                 <div class="col-lg-8">
                     <div class="well bs-component">
@@ -110,7 +110,7 @@
     </div>
     <script type="text/javascript">
 <?php
-    if ($_SESSION['login_level'] === 1) {
+    if ($_SESSION['login_level'] == 1) {
 ?>
     $('button.btnDelete').on('click', function (e) {
         e.preventDefault();
