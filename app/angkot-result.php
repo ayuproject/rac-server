@@ -49,7 +49,8 @@
 					SELECT 
 						id,
 						nama,
-						harga
+						harga,
+						satu_jalur
 					FROM 
 						tb_angkot
 					WHERE
@@ -67,6 +68,7 @@
 			$data_result["angkot"]["id"] = $id_angkot;
 			$data_result["angkot"]["nama"] = $data["nama"];
 			$data_result["angkot"]["harga"] = $data["harga"];
+			$data_result["angkot"]["satu_jalur"] = $data["satu_jalur"] == 1 ? true : false;
 			$stmt_rute = $conn->prepare("
 					SELECT
 						latlng

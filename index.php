@@ -100,11 +100,12 @@
                 directionsDisplay.setMap(map);
                 clearMarker();
                 var waypts = [];
+                var satu_jalur = obj.angkot.satu_jalur;
                 for (i =0; i < obj.angkot.rute.length; ++i) {
                   var loc = obj.angkot.rute[i].split(",");
                   waypts.push({location: new google.maps.LatLng(loc[0], loc[1])});
                 }
-                calculateAndDisplayRoute(directionsService, directionsDisplay, waypts)
+                calculateAndDisplayRoute(directionsService, directionsDisplay, waypts, satu_jalur)
                 //jalan
                 for (i =0; i < obj.angkot.jalan.length; ++i) {
                   var l_lat = obj.angkot.jalan[i].location.split(",");
@@ -186,10 +187,16 @@
           }
         }
 
-        function calculateAndDisplayRoute(directionsService, directionsDisplay, waypts) {
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, waypts, satu_jalur) {
 
           var start = waypts[0].location.lat() + "," + waypts[0].location.lng();
-          var end = start;
+          var end = "";
+          if (satu_jalur) {
+            end = waypts[waypts.length - 1].location.lat() + "," + waypts[waypts.length - 1].location.lng();
+            waypts.splice(waypts.length - 1, 1);
+          } else {
+            end = start;
+          }
 
           waypts.splice(0, 1);
 

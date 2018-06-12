@@ -40,8 +40,9 @@
 	$tarif = isset($_POST["tarif"]) ? $_POST["tarif"] : "";
 	$rute = isset($_POST["rute"]) ? $_POST["rute"] : array();
 	$id_jalan = isset($_POST["id_jalan"]) ? $_POST["id_jalan"] : array();
-	$id_tempat = isset($_POST["id_tempat"]) ? $_POST["id_tempat"] : array();
-	$pesan = "";
+    $id_tempat = isset($_POST["id_tempat"]) ? $_POST["id_tempat"] : array();
+    $satu_jalur = isset($_POST["satu_jalur"]) ? $_POST["satu_jalur"] : 0;
+    $pesan = "";
 
     $stmt_angkot = null;
     $stmt_rute = null;
@@ -87,7 +88,8 @@
                     tb_angkot
                     SET
                     nama=:nama,
-                    harga=:tarif
+                    harga=:tarif,
+                    satu_jalur=:satu_jalur
                     WHERE 
                     id=:id;
                 );"
@@ -95,6 +97,7 @@
             $stmt_angkot->bindParam(":id", $id);
             $stmt_angkot->bindParam(":nama", $nama);
             $stmt_angkot->bindParam(":tarif", $tarif);
+            $stmt_angkot->bindParam(":satu_jalur", $satu_jalur);
             $stmt_angkot->execute();
             $stmt_angkot->closeCursor();
             $stmt_rute = createMultipleInsertSQL(
@@ -134,15 +137,18 @@
 					INSERT INTO 
 						tb_angkot (
 							nama,
-							harga
+                            harga,
+                            satu_jalur
 						)
 					VALUES (
 						:nama,
-						:tarif
+                        :tarif,
+                        :satu_jalur
 					);"
 		);
 		$stmt_angkot->bindParam(":nama", $nama);
         $stmt_angkot->bindParam(":tarif", $tarif);
+        $stmt_angkot->bindParam(":satu_jalur", $satu_jalur);
         try {
             $stmt_angkot->execute();
             $id = $conn->lastInsertId();

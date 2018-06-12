@@ -8,6 +8,7 @@
   $id = isset($_POST["id"]) ? $_POST["id"] : "-1";
   $nama = "";
   $tarif = "";
+  $satu_jalur = false;
   $rute = array();
   $jalan = array();
   $tempat = array();
@@ -25,7 +26,8 @@
                 SELECT 
                     id,
                     nama,
-                    harga
+                    harga,
+                    satu_jalur
                 FROM 
                     tb_angkot
                 WHERE
@@ -43,6 +45,7 @@
         $data_result["angkot"]["id"] = $id_angkot;
         $data_result["angkot"]["nama"] = $data["nama"];
         $data_result["angkot"]["harga"] = $data["harga"];
+        $data_result["angkot"]["satu_jalur"] = $data["satu_jalur"];
         $stmt_rute = $conn->prepare("
                 SELECT
                     latlng
@@ -65,6 +68,7 @@
     $obj = $data_result;
     $nama = $obj["angkot"]["nama"];
     $tarif = $obj["angkot"]["harga"];
+    $satu_jalur = $obj["angkot"]["satu_jalur"] == 1 ? true : false;
     $rute = $obj["angkot"]["rute"];
     $jalan = $obj["angkot"]["jalan"];
     $tempat = $obj["angkot"]["tempat"];
@@ -149,6 +153,14 @@
                                       ?>
                                     </tbody>
                                   </table>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="form-group">
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" id="satujalur" <?= $satu_jalur ? "checked" : "" ?>> Satu Jalur
+                                  </label>
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -328,6 +340,23 @@
             }
           });
 
+          $('#satujalur').change(function() {
+            $("#btn-result-rute").prop("disabled", this.checked);
+            var tb_count = 0;
+            $('#tb-lokasi > tbody > tr').each(function(){
+              $(this).find(".num").html(++tb_count);
+            });
+            directionsDisplay.setMap(null);
+            directionsDisplay = null;
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsDisplay.setMap(map);
+            if (tb_count > 1) {
+              calculateAndDisplayRoute(directionsService, directionsDisplay, false);
+            } else {
+              directionsDisplay.setMap(null);
+            }
+          });
+
           $(document).on("click", ".btn-rm-jalan-tempat", function(e){
             $(this).parent().parent().remove();
           });
@@ -438,6 +467,7 @@
             var rute = [];
             var id_jalan = [];
             var id_tempat = [];
+            var satu_jalur = $('#satujalur').is(":checked") == true ? 1 : 0;
 
             $("#tb-lokasi > tbody > tr").each(function(){
               rute.push($(this).find(".latlng").html());
@@ -479,7 +509,8 @@
               tarif: tarif,
               rute: rute,
               id_jalan: id_jalan,
-              id_tempat: id_tempat
+              id_tempat: id_tempat,
+              satu_jalur: satu_jalur
             },
             function(data,status){
                 alert("Pesan : " + data);
